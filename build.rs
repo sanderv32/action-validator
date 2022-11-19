@@ -1,3 +1,4 @@
+#![allow(unused)]
 // build.rs
 
 use std::path::Path;

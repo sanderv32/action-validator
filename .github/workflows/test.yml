@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
@@ -47,13 +47,13 @@ jobs:
         run: shfmt -d bin/*
 
   build:
-    name: ${{ matrix.build.toolchain }}/${{ matrix.build.target }}/${{ matrix.toolchain }}
-    runs-on: ${{ matrix.build.os }}
+    name: ${{ matrix.triple.toolchain }} / ${{ matrix.triple.target }} / ${{ matrix.toolchain }}
+    runs-on: ${{ matrix.triple.os }}
     strategy:
       fail-fast: false
       matrix:
         toolchain: [stable, beta, nightly]
-        build:
+        triple:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
             cross: false
@@ -63,18 +63,16 @@ jobs:
           - os: macos-latest
             target: x86_64-apple-darwin
             cross: false
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
-            cross: false
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: ${{ matrix.toolchain }}
+          target: ${{ matrix.triple.target }}
           override: true
           default: true
 
@@ -82,4 +80,4 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release --all-features --target ${{ matrix.build.target }}
+          args: --release --all-features --target ${{ matrix.triple.target }}
