@@ -2,12 +2,21 @@
 name = "action-validator"
 version = "0.0.0-git"
 authors = ["Matt Palmer <matt@hezmatt.org>"]
-edition = "2018"
+edition = "2021"
+build = "build.rs"
 
 [dependencies]
 glob = "0.3"
 structopt = "0.3"
 serde = "1.0"
 serde_json = "1.0"
-serde_yaml = "0.8"
+serde_yaml = "0.9"
 valico = "3.6"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+split-debuginfo = "off"
+debug = false
