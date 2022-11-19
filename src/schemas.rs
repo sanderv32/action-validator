@@ -1,11 +1,11 @@
 use serde_json::Value;
 
 pub fn validate_as_action(doc: &Value) -> bool {
-    validate_with_schema(doc, include_bytes!("github-action.json"))
+    validate_with_schema(doc, include_bytes!("../schemas/github-action.json"))
 }
 
 pub fn validate_as_workflow(doc: &Value) -> bool {
-    validate_with_schema(doc, include_bytes!("github-workflow.json"))
+    validate_with_schema(doc, include_bytes!("../schemas/github-workflow.json"))
 }
 
 fn validate_with_schema(doc: &Value, schema: &[u8]) -> bool {
