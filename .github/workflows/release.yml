@@ -54,5 +54,5 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.ref }}
-          file: target/release/action-validator
+          file: target/${{ matrix.target }}/release/action-validator
           asset_name: ${{ matrix.asset_name }}
