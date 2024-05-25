@@ -1,0 +1,8 @@
+name: GitHub Action/Workflow linter
+description: Lints GitHub Action and Workflow yaml files
+runs:
+  using: docker
+  image: Dockerfile
+branding:
+  icon: award
+  color: blue
